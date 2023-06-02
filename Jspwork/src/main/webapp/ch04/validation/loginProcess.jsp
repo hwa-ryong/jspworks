@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>시간이란...</title>
+<title>로그인 처리</title>
 </head>
 <body>
-	<h2>시간이란...</h2>
+	<p>로그인 되었습니다.</p>
 </body>
 </html>
