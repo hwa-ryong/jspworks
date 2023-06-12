@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="resources/css/style.css">
 </head>
 	<body>
+		<jsp:include page="../header.jsp" />
 		<div id="container">
 			<section id="register">
 				<h2>회원 가입</h2>
@@ -46,5 +47,6 @@
 				</form>
 			</section>
 		</div>
+	<jsp:include page="../footer.jsp" />	
 	</body>
 </html>
