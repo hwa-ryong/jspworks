@@ -66,9 +66,9 @@ public class MainController extends HttpServlet {
 			
 			//모델 생성 및 보내기 
 			request.setAttribute("memberList", memberList);
-			nextPage = "/member/memberList.jsp";
+			nextPage = "member/memberList.jsp";
 		}else if(command.equals("/memberForm.do")) {
-			nextPage = "/member/memberForm.jsp";
+			nextPage = "member/memberForm.jsp";
 		}else if(command.equals("/addMember.do")) {
 			//폼에 입력된 데이터 받기
 			String memberId = request.getParameter("memberId");
@@ -124,25 +124,60 @@ public class MainController extends HttpServlet {
 			//세션 모두 삭제(해제)
 			session.invalidate();
 			nextPage = "/index.jsp";
+		} else if(command.equals("/deleteMember.do")) {
+			String memberId = request.getParameter("memberId");
+			memberDAO.deleteMember(memberId);
+			nextPage = "/memberList.do";
 		}
 		
 		//게시판 관리
 		if(command.equals("/boardList.do")) {
 			ArrayList<Board> boardList = boardDAO.getBoardList();
-			
 			//모델 생성
 			request.setAttribute("boardList", boardList);
-			
-			
 			nextPage = "/board/boardList.jsp";
+		} else if(command.equals("/boardForm.do")) {
+			nextPage = "/board/boardForm.jsp";
+		} else if(command.equals("/addBoard.do")) {
+			//글쓰기 폼에 입력된 데이터를 받아오기
+			String title = request.getParameter("title");
+			String content = request.getParameter("content");
+			//memberId 세션을 가져오기
+			String memberId = (String)session.getAttribute("sessionId");
+			
+			Board board = new Board();
+			board.setTitle(title);
+			board.setContent(content);
+			board.setMemberId(memberId);
+			
+			//글쓰기 처리 메서드 호출
+			boardDAO.addBoard(board);
+			
+		} else if(command.equals("/boardView.do")) {
+			int bnum = Integer.parseInt(request.getParameter("bnum"));
+			Board board = boardDAO.getBoard(bnum);  //글 상세보기 처리
+			
+			//모델 생성
+			request.setAttribute("board", board);
+			
+			nextPage = "/board/boardView.jsp";
+		}else if(command.equals("/deleteBoard.do")) {
+			int bnum = Integer.parseInt(request.getParameter("bnum"));
+			boardDAO.deleteBoard(bnum);
+			nextPage = "/boardList.do";   //삭제 후 게시글 목록 이동
 		}
 		
 		
 		//포워딩
-		RequestDispatcher dispatcher =
-				request.getRequestDispatcher(nextPage);
-		
-		dispatcher.forward(request, response);
+		if(command.equals("/addBoard.do")) {
+			response.sendRedirect("/boardList.do");
+		}
+		else {
+			RequestDispatcher dispatcher =
+					request.getRequestDispatcher(nextPage);
+			
+			dispatcher.forward(request, response);
+		}
 		
 	}
 

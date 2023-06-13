@@ -39,8 +39,8 @@
 								</label>
 							</li>
 							<li>
-								<input type="submit" value="가입하기"> <input type="reset"
-									value="다시쓰기">
+								<input type="submit" value="가입">
+								<input type="reset" value="취소">
 							</li>
 						</ul>
 					</fieldset>
