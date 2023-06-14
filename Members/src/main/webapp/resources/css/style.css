@@ -88,6 +88,8 @@ footer{height: 80px; border-top: 2px solid #222;}
 #board_detail table tr:nth-of-type(3) td{text-align: left; padding-left: 10px;}
 #board_detail table textarea{width: 520px; height: 350px; resize: none; padding: 5px;
 	line-height: 1.5; font-family: '맑은 고딕';}
+#board_detail table button[type='submit']{width: 80px; height: 30px;}
+#board_detail table button[type='reset']{width: 80px; height: 30px;}
 #board_detail table button[type='button']{width: 80px; height: 30px;}
 
 

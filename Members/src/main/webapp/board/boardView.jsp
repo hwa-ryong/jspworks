@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,16 +28,28 @@
 					<tr>
 						<td>
 							<c:out value="글쓴이: ${board.memberId}" />
-								(작성일 : <c:out value="${board.regDate}" />)
+							<c:choose>
+								<c:when test="${not empty board.modifyDate}">
+									(수정일: <fmt:formatDate value="${board.modifyDate}" 
+												pattern="yyyy-MM-dd HH:mm:ss" />)
+									
+								</c:when>
+								<c:otherwise>	
+									(작성일 : <fmt:formatDate value="${board.regDate}" 
+												pattern="yyyy-MM-dd HH:mm:ss" />)
+								</c:otherwise>
+							</c:choose>
 						</td>
 					</tr>
 					<tr>
 						<td>
 							<c:if test="${board.memberId == sessionId}">
-								<button type="button">수정</button>
-								<a href="/deleteBoard.do?bnum=${board.bnum}"
+								<a href="/updateBoard.do?bnum=<c:out value='${board.bnum}'/>">
+									<button type="button">수정</button>
+								</a>
+								<a href="/deleteBoard.do?bnum=<c:out value='${board.bnum}'/>"
 								   onclick="return confirm('정말로 삭제하시겠습니까?')">
-								<button type="button">삭제</button>
+									<button type="button">삭제</button>
 								</a>
 							</c:if>
 							<a href="/boardList.do">
