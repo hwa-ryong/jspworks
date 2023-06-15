@@ -38,7 +38,6 @@
 						<td><c:out value="${member.passwd}" /></td>
 						<td><c:out value="${member.name}" /></td>
 						<td><c:out value="${member.gender}" /></td>
-						<%-- <td><c:out value="${member.joinDate}" /></td> --%>
 						<td><fmt:formatDate value="${member.joinDate}" 
 								pattern="yyyy-MM-dd hh:mm:ss" /></td>
 						<td>
@@ -51,9 +50,12 @@
 				</c:forEach>
 			</tbody>
 		</table>
-			<%-- <c:forEach var="member" items="${memberList}">
-					<p>아이디 : <c:out value="${member.memberId}" />
-				</c:forEach> --%>
+		<h3>이벤트 추첨 링크</h3>	
+		<div class="banner">
+			<a href="/memberEvent.do">
+				<img src="../resources/images/bronx.png" alt="한식뷔페">
+			</a>
+		</div>
 		</section>
 	</div>
 	<jsp:include page="../footer.jsp" />

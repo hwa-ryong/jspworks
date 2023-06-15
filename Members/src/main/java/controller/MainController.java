@@ -84,6 +84,8 @@ public class MainController extends HttpServlet {
 			
 			
 			memberDAO.addMember(newMember);   //회원 매개로 DB에 저장
+			//가입 후 자동 로그인
+			session.setAttribute("sessionId", memberId);
 			nextPage = "index.jsp";
 		}else if(command.equals("/memberView.do")) { //회원 정보 요청
 			
@@ -183,6 +185,8 @@ public class MainController extends HttpServlet {
 			
 			boardDAO.updateBoard(updateBoard); //수정 처리
 			nextPage = "/boardList.do";
+		}else if(command.equals("/memberEvent.do")) {
+			nextPage = "/member/memberEvent.jsp";
 		}
 		
 		
