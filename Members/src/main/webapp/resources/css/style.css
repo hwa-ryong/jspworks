@@ -114,7 +114,7 @@ footer{height: 80px; border-top: 2px solid #222;}
 #register form .button{width: 400px; height: 50px; text-align: center;}
 #register form input[type='button']{width: 80px; height: 30px; margin-top: 30px;}
 #register form input[type='reset']{width: 80px; height: 30px; margin-top: 30px;}
-
+#register .btn_check{padding: 5px; margin-left: 5px;}
 
 
 
