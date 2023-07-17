@@ -163,7 +163,7 @@
         
 		
 		
-      	<Context docBase="C:\green_project\jspworks\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ROOT" path="" reloadable="false"/><Context docBase="C:\green_project\jspworks\Members2\src\main\webapp\upload" path="/upload" reloadable="true"/><Context docBase="C:\green_project\jspworks\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\jspwork2" path="/jspwork2" reloadable="true" source="org.eclipse.jst.jee.server:jspwork2"/></Host>
+      	<Context docBase="C:\green_project\jspworks\Members2\src\main\webapp\upload" path="/upload" reloadable="true"/><Context docBase="C:\green_project\jspworks\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\jspwork2" path="/jspwork2" reloadable="true" source="org.eclipse.jst.jee.server:jspwork2"/><Context docBase="C:\green_project\jspworks\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\Members2" path="" reloadable="true" source="org.eclipse.jst.jee.server:Members2"/></Host>
     </Engine>
   </Service>
 </Server>
