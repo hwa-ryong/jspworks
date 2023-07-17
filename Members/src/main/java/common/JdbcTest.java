@@ -6,10 +6,10 @@ import java.sql.SQLException;
 
 public class JdbcTest {
 	
-	static String driverClass = "oracle.jdbc.OracleDriver";     //드라이버 이름
-	static String url = "jdbc:oracle:thin:@localhost:1521:xe";  //db 경로(위치)
-	static String username = "system";    // user 이름
-	static String password = "12345";       // 비밀번호
+	static String driverClass = "oracle.jdbc.OracleDriver";  //드라이버 이름
+	static String url = "jdbc:oracle:thin:@localhost:1521:xe"; //db 경로(위치)
+	static String username = "c##mydb";  //user 이름
+	static String password = "mydb";     //비밀번호
 
 	public static void main(String[] args) {
 		//연결 객체 선언

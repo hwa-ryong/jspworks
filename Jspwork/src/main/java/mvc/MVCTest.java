@@ -10,17 +10,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 @WebServlet("/mvc/mvc01")
 public class MVCTest extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String season = "여름";
 		String[] seasons = {"봄", "여름", "가을", "겨울"};
-		
 		
 		ArrayList<Integer> numberList = new ArrayList<>();
 		numberList.add(10);
@@ -37,12 +34,9 @@ public class MVCTest extends HttpServlet {
 				request.getRequestDispatcher("/mvc/mvc01.jsp");
 		
 		dispatcher.forward(request, response);
-		
 	}
-    
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		
 	}
 

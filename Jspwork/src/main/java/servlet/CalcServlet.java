@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 @WebServlet("/calculator/calc")
 public class CalcServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -18,7 +17,7 @@ public class CalcServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response); //호출
 	}
-	
+
 	//method 방식인 post 요청 처리
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//폼 데이터 가져오기

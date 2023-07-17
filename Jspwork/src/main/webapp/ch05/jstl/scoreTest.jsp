@@ -8,20 +8,20 @@
 <title>학점 처리</title>
 </head>
 <body>
-	<c:set var="score" value="${param.score}"></c:set>
-	<h3>시험 점수: <c:out value="${score}" /></h3>
+	<c:set var="score" value="${param.score.trim()}" />
+	<h3>시험 점수:  <c:out value="${score}" /></h3>
 	<!-- 다중 조건문 -->
 	<c:choose>
-		<c:when test="${score >= 90 && score <= 100}">
+		<c:when test="${score >= 90 and score <= 100}">
 			<h3>A학점 입니다.</h3>
 		</c:when>
-		<c:when test="${score >= 80 && score < 90}">
+		<c:when test="${score >= 80 and score < 90}">
 			<h3>B학점 입니다.</h3>
 		</c:when>
-		<c:when test="${score >= 70 && score < 80}">
+		<c:when test="${score >= 70 and score < 80}">
 			<h3>C학점 입니다.</h3>
 		</c:when>
-		<c:when test="${score >= 60 && score < 70}">
+		<c:when test="${score >= 60 and score < 70}">
 			<h3>D학점 입니다.</h3>
 		</c:when>
 		<c:otherwise>

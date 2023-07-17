@@ -7,12 +7,10 @@
 <title>Java Beans</title>
 </head>
 <body>
+	<!-- 실제 클래스의 이름 - 패키지이름.클래스이름 -->
 	<jsp:useBean id="member" class="beans.MemberBean" />
-	<!-- name의 값이 객체 이름과 같음, value에 값을 저장, 변경  -->
-	<jsp:setProperty property="id" name="member" />
-	<jsp:setProperty property="name" name="member" />
 	
-	<p>아이디: <jsp:getProperty property="id" name="member" /></p>
-	<p>이  름: <jsp:getProperty property="name" name="member"/> </p>
+	<p>아이디: <%=member.getId() %> </p>
+	<p>이  름: <%=member.getName() %> </p>
 </body>
 </html>

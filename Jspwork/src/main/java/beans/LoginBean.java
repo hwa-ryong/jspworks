@@ -3,10 +3,10 @@ package beans;
 import java.io.Serializable;
 
 public class LoginBean implements Serializable{
-	
+
 	private static final long serialVersionUID = 2L;
 	
-	//필드 
+	//필드
 	private String userid;
 	private String passwd;
 	
@@ -26,7 +26,8 @@ public class LoginBean implements Serializable{
 			return false;
 		}
 	}
-	
+
+	//getter, setter 메서드
 	public String getUserid() {
 		return userid;
 	}
@@ -42,7 +43,4 @@ public class LoginBean implements Serializable{
 	public void setPasswd(String passwd) {
 		this.passwd = passwd;
 	}
-	
-	
-
 }

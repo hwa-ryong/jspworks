@@ -9,7 +9,7 @@
 <body>
 	<form action="process2.jsp" method="get">
 		<p>
-			<label>오렌지<input type="checkbox" name="fruit" value="오렌지"></label>
+			<label>오렌지<input type="checkbox" name="fruit" value="오렌지" checked></label>
 			<label>사과<input type="checkbox" name="fruit" value="사과"></label>
 			<label>바나나<input type="checkbox" name="fruit" value="바나나"></label>
 			<input type="submit" value="전송">

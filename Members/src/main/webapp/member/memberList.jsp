@@ -12,7 +12,7 @@
 <body>
 	<jsp:include page="../header.jsp" />
 	<div id="container">
-		<section id="memberlist">
+	   <section id="memberlist">
 		<h2>회원 목록</h2>
 		<div class="logout">
 			<p><a href="/logout.do">[관리자 로그아웃]</a></p>
@@ -30,27 +30,29 @@
 			</thead>
 			<tbody>
 				<c:forEach var="member" items="${memberList}">
-					<tr>
-						<td>
-							<a href="/memberView.do?memberId=${member.memberId}">
-								<c:out value="${member.memberId}" /></a>
-						</td>
-						<td><c:out value="${member.passwd}" /></td>
-						<td><c:out value="${member.name}" /></td>
-						<td><c:out value="${member.gender}" /></td>
-						<td><fmt:formatDate value="${member.joinDate}" 
-								pattern="yyyy-MM-dd hh:mm:ss" /></td>
-						<td>
-							<a href="/deleteMember.do?memberId=${member.memberId}"
-								onclick="return_confirm('정말로 삭제하시겠습니까?')">
-							<button type="button">삭제</button></a>
-						</td>
-						
-					</tr>
+				<tr>
+					<td>
+						<a href="/memberView.do?memberId=${member.memberId}">
+							<c:out value="${member.memberId}" /></a>
+					</td>
+					<td><c:out value="${member.passwd}" /> </td>
+					<td><c:out value="${member.name}" /> </td>
+					<td><c:out value="${member.gender}" /> </td>
+					<%-- <td><c:out value="${member.joinDate}" /> </td> --%>
+					<td><fmt:formatDate value="${member.joinDate}"
+							pattern="yyyy-MM-dd HH:mm:ss" /> </td>
+					<td>
+						<a href="/deleteMember.do?memberId=${member.memberId}"
+							onclick="return confirm('정말로 삭제하시겠습니까?')">
+							<button type="button">삭제</button>
+						</a>
+					</td>
+				</tr>
 				</c:forEach>
 			</tbody>
 		</table>
-		<h3>이벤트 추첨 링크</h3>	
+		
+		<h3>이벤트 추첨 링크</h3>
 		<div class="banner">
 			<a href="/memberEvent.do">
 				<img src="../resources/images/bronx.png" alt="한식뷔페">

@@ -163,7 +163,7 @@
         
 		
 		
-      	<Context docBase="Members" path="/" reloadable="true" source="org.eclipse.jst.jee.server:Members"/><Context docBase="Jspwork" path="/Jspwork" reloadable="true" source="org.eclipse.jst.jee.server:Jspwork"/></Host>
+      	<Context docBase="C:\green_project\jspworks\Members2\src\main\webapp\upload" path="/upload" reloadable="true"/><Context docBase="jspwork2" path="/jspwork2" reloadable="true" source="org.eclipse.jst.jee.server:jspwork2"/></Host>
     </Engine>
   </Service>
 </Server>

@@ -17,8 +17,8 @@ public class MemberDAO {
 	//회원 가입
 	public void addMember(Member member) {
 		conn = JDBCUtil.getConnection();
-		String sql = "INSERT INTO t_member(memberid, passwd, name, gender)"
-				+ "VALUES (?, ?, ?, ?)";
+		String sql = "INSERT INTO t_member(memberid, passwd, name, gender) "
+						+ "VALUES (?, ?, ?, ?)";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, member.getMemberId());
@@ -28,8 +28,11 @@ public class MemberDAO {
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(conn, pstmt);
 		}
 	}
+	
 	
 	//회원 목록
 	public ArrayList<Member> getMemberList(){
@@ -41,7 +44,7 @@ public class MemberDAO {
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				Member member = new Member();
-				member.setMemberId(rs.getString("memberid"));  //db에서 꺼내옴
+				member.setMemberId(rs.getString("memberid")); //db에서 꺼내옴
 				member.setPasswd(rs.getString("passwd"));
 				member.setName(rs.getString("name"));
 				member.setGender(rs.getString("gender"));
@@ -54,8 +57,6 @@ public class MemberDAO {
 		} finally {
 			JDBCUtil.close(conn, pstmt, rs);
 		}
-		
-		
 		return memberList;
 	}
 	
@@ -74,7 +75,6 @@ public class MemberDAO {
 				member.setName(rs.getString("name"));
 				member.setGender(rs.getString("gender"));
 				member.setJoinDate(rs.getDate("joindate"));
-				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -108,11 +108,11 @@ public class MemberDAO {
 	//회원 삭제
 	public void deleteMember(String memberId) {
 		conn = JDBCUtil.getConnection();
-		String sql = "DELETE FROM t_member WHERE memberId = ?";		
+		String sql = "DELETE FROM t_member WHERE memberId = ?";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, memberId);
-			pstmt.executeUpdate();  //db에 삭제
+			pstmt.executeUpdate();  //db에서 삭제
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -125,7 +125,7 @@ public class MemberDAO {
 		int result = 0;
 		conn = JDBCUtil.getConnection();
 		String sql = "SELECT COUNT(*) AS result "
-				+ "FROM t_member WHERE memberid = ?";		
+				+ "FROM t_member WHERE memberid = ?";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, memberId);
@@ -141,11 +141,29 @@ public class MemberDAO {
 		
 		return result;
 	}
+	
+	//ID 중복 체크
+	/*public boolean duplicatedID(String memberId) {
+		boolean result = false;
+		conn = JDBCUtil.getConnection();
+		String sql = "SELECT DECODE(COUNT(*), 1, 'true', 'false') AS result "
+				+ "FROM t_member WHERE memberid = ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memberId);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getBoolean("result");  //칼럼이 result인 값을 꺼내옴
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(conn, pstmt, rs);
+		}
+		
+		return result;
+	}*/
 }
-
-
-
-
 
 
 

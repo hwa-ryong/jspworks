@@ -7,6 +7,5 @@
 <p>비밀번호: <%= request.getParameter("passwd") %>
 <p>이 름: <%= request.getParameter("uname") %>
 <p>연락처: <%= request.getParameter("phone1") %>
-			- <%= request.getParameter("phone2") %>
-			- <%= request.getParameter("phone3") %>
-			 
+		 - <%= request.getParameter("phone2") %>
+		 - <%= request.getParameter("phone3") %>

@@ -9,12 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 @WebServlet("/calculator/calc2")
 public class CalcServlet2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//폼 데이터 가져오기
@@ -48,16 +46,16 @@ public class CalcServlet2 extends HttpServlet {
 		   .append("<div id=\"container\">")
 		   .append("<h2>계산기</h2><hr>")
 		   .append("<p>계산 결과: " + result + "</p></div>");
-		
 	}
-	
+
 	//method 방식인 get 요청 처리
-		protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			service(request, response);
-		}
-		
-		protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			service(request, response);
-		}
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		service(request, response); //호출
+	}
+
+	//method 방식인 post 요청 처리
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		service(request, response); //호출
+	}
 
 }

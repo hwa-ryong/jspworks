@@ -5,15 +5,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원가입 폼</title>
+<title>회원 정보</title>
 <style>
 	#container{width: 80%; margin: 30px auto; text-align: center;}
 	fieldset{width: 450px; margin: 0 auto;}
-	label{width: 100px; float: left; text-align: right;}
+	label{width: 100px; float:left; text-align: right;}
 	table{width: 600px; margin: 0 auto;}
-	table, th, td{border: 1px solid #ccc; border-collapse: collapse;}
+	table, th, td{border: 1px solid #ccc; border-collapse: collapse }
 	table th, td{padding: 10px;}
-	table thead{background: #eee};
+	table thead{background: #eee;}
 </style>
 </head>
 <body>
@@ -31,12 +31,11 @@
 			<tbody>
 				<tr>
 					<!-- MVC -> Model(데이터) -->
-					<th>${param.userid}</th>
-					<th>${param.passwd}</th>
-					<th>${param.uname}</th>
+					<td>${param.userid}</td>
+					<td>${param.passwd}</td>
+					<td>${param.uname}</td>
 				</tr>
 			</tbody>
-			
 		</table>
 	</div>
 </body>

@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <% request.setCharacterEncoding("utf-8"); %>
 <title>주소 추가</title>
 <link rel="stylesheet" href="../resources/css/style.css">
@@ -9,7 +8,7 @@
 <jsp:setProperty property="tel" name="aB"/>
 <jsp:setProperty property="email" name="aB"/>
 <jsp:setProperty property="gender" name="aB"/>
-<jsp:useBean id="abDAO" class="address.AddrBookDAO" scope="application"/>
+<jsp:useBean id="abDAO" class="address.AddrBookDAO" scope="application" />
 <%
 	//ArrayList에 aB(주소) 객체 삽입(추가)
 	abDAO.add(aB);
@@ -23,6 +22,4 @@
 	<p>성별: <%=aB.getGender() %></p>
 	<hr>
 	<a href="addrList.jsp">목록 보기</a>
-	
 </div>
-

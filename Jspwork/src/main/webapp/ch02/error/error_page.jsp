@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!-- errorPage 속성 사용  -->
-<%@ page errorPage="error_msg.jsp" %>  
+<!-- errorPage 속성 사용 -->
+<%@ page errorPage="error_msg.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>

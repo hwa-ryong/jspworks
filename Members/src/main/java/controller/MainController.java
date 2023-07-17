@@ -22,25 +22,23 @@ import board.BoardDAO;
 import member.Member;
 import member.MemberDAO;
 
-
 @WebServlet("*.do")  //경로를 .do로 끝나도록 설정
 public class MainController extends HttpServlet {
-	private static final long serialVersionUID = 4L;
-
-	MemberDAO memberDAO;    //MemberDAO 객체 선언
-	BoardDAO boardDAO;
 	
+	private static final long serialVersionUID = 4L;
+	
+	MemberDAO memberDAO;  //MemberDAO 객체 선언
+	BoardDAO boardDAO;
+
 	public void init(ServletConfig config) throws ServletException {
 		memberDAO = new MemberDAO();  //객체 생성
 		boardDAO = new BoardDAO();
 	}
 
-	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
 
-	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//한글 인코딩
 		request.setCharacterEncoding("utf-8");
@@ -63,16 +61,14 @@ public class MainController extends HttpServlet {
 		//세션 객체 생성
 		HttpSession session = request.getSession();
 		
-		//회원 목록 조회
 		if(command.equals("/memberList.do")) { //회원 목록 조회
-			
 			ArrayList<Member> memberList = memberDAO.getMemberList();
 			
-			//모델 생성 및 보내기 
+			//모델 생성 및 보내기
 			request.setAttribute("memberList", memberList);
-			nextPage = "member/memberList.jsp";
+			nextPage = "/member/memberList.jsp";
 		}else if(command.equals("/memberForm.do")) {
-			nextPage = "member/memberForm.jsp";
+			nextPage = "/member/memberForm.jsp";
 		}else if(command.equals("/addMember.do")) {
 			//폼에 입력된 데이터 받기
 			String memberId = request.getParameter("memberId");
@@ -86,10 +82,9 @@ public class MainController extends HttpServlet {
 			newMember.setName(name);
 			newMember.setGender(gender);
 			
-			
-			memberDAO.addMember(newMember);   //회원 매개로 DB에 저장
-			//가입 후 자동 로그인
-			session.setAttribute("sessionId", memberId);
+			memberDAO.addMember(newMember); //회원 매개로 DB에 저장
+			//가입후 자동 로그인
+			session.setAttribute("sessionId", memberId); //세션 발급
 			nextPage = "index.jsp";
 		}else if(command.equals("/memberView.do")) { //회원 정보 요청
 			
@@ -98,7 +93,7 @@ public class MainController extends HttpServlet {
 			
 			Member member = memberDAO.getMember(memberId);
 			
-			request.setAttribute("member", member);
+			request.setAttribute("member", member);  //member 모델 생성
 			
 			nextPage = "/member/memberView.jsp";
 		} else if(command.equals("/loginForm.do")) { //로그인 페이지 요청
@@ -120,38 +115,65 @@ public class MainController extends HttpServlet {
 				nextPage = "/index.jsp";
 			}
 			else {
-				//2가지 방법, alert(), errorMsg 보내기(모델)
+				//2가지 방법 : alert(), errorMsg 보내기(모델)
 				out.println("<script>");
 				out.println("alert('아이디와 비밀번호를 확인해주세요')");
-				out.println("history.go(-1)");  //이전 페이지로 이동
+				out.println("history.go(-1)"); //이전 페이지로 이동
 				out.println("</script>");
 			}
-		} else if(command.equals("/logout.do")) {
+		} else if(command.equals("/logout.do")) {//로그아웃 요청
 			//세션 모두 삭제(해제)
 			session.invalidate();
 			nextPage = "/index.jsp";
-		} else if(command.equals("/deleteMember.do")) {
+		} else if(command.equals("/deleteMember.do")) { //회원 삭제 요청
 			String memberId = request.getParameter("memberId");
-			memberDAO.deleteMember(memberId);
+			memberDAO.deleteMember(memberId); //회원 삭제 처리
 			nextPage = "/memberList.do";
+		} else if(command.equals("/memberEvent.do")) { 
+			nextPage = "/member/memberEvent.jsp";
 		}
 		
 		//게시판 관리
 		if(command.equals("/boardList.do")) {
-			ArrayList<Board> boardList = boardDAO.getBoardList();
+			//페이지 처리
+			String pageNum = request.getParameter("pageNum");
+			if(pageNum == null) { //pageNum이 없으면 기본 1페이지
+				pageNum = "1";
+			}
+			//각 페이지의 첫행 : 1page->01번, 2page->11, 3->21
+			int currentPage = Integer.parseInt(pageNum);
+			int pageSize = 10;
+			int startRaw = (currentPage-1)*pageSize + 1;
+			
+			//시작 페이지 : 13번->2, 23->3
+			int startPage = startRaw / pageSize + 1;
+			
+			//종료(끝) 페이지
+			int total = boardDAO.getBoardCount(); //총행수가 나누어 떨어지면 않으면 페이지수에 1을 더함
+			//int endPage = toatal / pageSize -> 3page
+			int endPage = total / pageSize;  //총행수 / 페이지당 행의 수
+			endPage = (total % 10 == 0) ? endPage : endPage + 1;
+			
+			//게시글 목록보기 함수 호출
+			ArrayList<Board> boardList = boardDAO.getBoardList(currentPage);
+			
 			//모델 생성
 			request.setAttribute("boardList", boardList);
-			nextPage = "/board/boardList.jsp";
-		} else if(command.equals("/boardForm.do")) {
-			nextPage = "/board/boardForm.jsp";
-		} else if(command.equals("/addBoard.do")) {
+			request.setAttribute("currentPage", currentPage);
+			request.setAttribute("startPage", startPage);
+			request.setAttribute("endPage", endPage);
 			
-			String realFolder = "C:/green_project/jspworks/Members/src/main/webapp/upload";
-					
+			nextPage = "/board/boardList.jsp";
+		}else if(command.equals("/boardForm.do")) {
+			nextPage = "/board/boardForm.jsp";
+		}else if(command.equals("/addBoard.do")) {
+			
+			String realFolder = "C:/Users/Administrator/git/jspworks0/Members/src/main/webapp/upload";
+			
 			MultipartRequest multi = new MultipartRequest(request, realFolder,
 					5*1024*1024, "utf-8", new DefaultFileRenamePolicy());
 			
-			//글쓰기 폼에 입력된 데이터를 받아오기
+			//글쓰기 폼에 입력된 데이터 받아오기(request는 사용하지 않고 multi를 사용함)
 			String title = multi.getParameter("title");
 			String content = multi.getParameter("content");
 			//memberId 세션을 가져오기
@@ -163,7 +185,7 @@ public class MainController extends HttpServlet {
 			String fileName = "";
 			if(files.hasMoreElements()) {
 				name = (String)files.nextElement();
-				fileName = multi.getFilesystemName(name);
+				fileName = multi.getFilesystemName(name); //서버에 저장될 파일이름
 			}
 			
 			Board newBoard = new Board();
@@ -172,11 +194,10 @@ public class MainController extends HttpServlet {
 			newBoard.setMemberId(memberId);
 			newBoard.setFileUpload(fileName);
 			
-	
 			//글쓰기 처리 메서드 호출
-			boardDAO.addBoard(newBoard);
+			boardDAO.addBoard(newBoard); //db에 저장
 			
-		} else if(command.equals("/boardView.do")) {
+		}else if(command.equals("/boardView.do")) {
 			int bnum = Integer.parseInt(request.getParameter("bnum"));
 			Board board = boardDAO.getBoard(bnum);  //글 상세보기 처리
 			
@@ -186,13 +207,13 @@ public class MainController extends HttpServlet {
 			nextPage = "/board/boardView.jsp";
 		}else if(command.equals("/deleteBoard.do")) {
 			int bnum = Integer.parseInt(request.getParameter("bnum"));
-			boardDAO.deleteBoard(bnum);
-			nextPage = "/board/boardList.do";   //삭제 후 게시글 목록 이동
+			boardDAO.deleteBoard(bnum); //게시글 삭제
+			nextPage = "/board/boardList.jsp";  //삭제 후 게시글 목록 이동
 		}else if(command.equals("/updateBoard.do")) {
 			int bnum = Integer.parseInt(request.getParameter("bnum"));
 			Board board = boardDAO.getBoard(bnum); //게시글 상세 보기
 			request.setAttribute("board", board);
-			nextPage = "/board/updateBoard.do";
+			nextPage = "/board/updateBoard.jsp";
 		}else if(command.equals("/updateProcess.do")) {
 			//수정 폼에서 입력 내용 받기
 			int bnum = Integer.parseInt(request.getParameter("bnum"));
@@ -206,22 +227,18 @@ public class MainController extends HttpServlet {
 			
 			boardDAO.updateBoard(updateBoard); //수정 처리
 			nextPage = "/boardList.do";
-		}else if(command.equals("/memberEvent.do")) {
-			nextPage = "/member/memberEvent.jsp";
 		}
-		
 		
 		//포워딩 - 새로고침 자동 저장 오류 해결 : response.sendRedirect()
 		if(command.equals("/addBoard.do")) {
 			response.sendRedirect("/boardList.do");
 		}
 		else {
-			RequestDispatcher dispatcher =
+			RequestDispatcher dispatcher = 
 					request.getRequestDispatcher(nextPage);
 			
 			dispatcher.forward(request, response);
 		}
-		
 	}
 
 }

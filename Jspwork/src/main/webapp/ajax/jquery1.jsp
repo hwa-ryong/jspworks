@@ -17,12 +17,11 @@
 			alert("안녕하세요~");
 		})
 	});
-
 </script>
 </head>
 <body>
 	<h2>환영합니다.</h2>
-	<p class="info">내 이름은 오화룡입니다.</p>
+	<p class="info">내 이름은 김초엽입니다.</p>
 	<p>나는 서울에 살아요</p>
 	<button type="button">전송</button>
 </body>

@@ -11,13 +11,14 @@
 	select{padding: 5px;}
 </style>
 </head>
-<jsp:useBean id="product" class="product.Product" scope="session" />
+<jsp:useBean id="product" class="product.Product" />
 <body>
 	<div id="container">
 		<h2>상품 목록</h2>
 		<hr>
 		<form action="selProduct.jsp" method="post">
 			<select name="select">
+			<%-- product.productList -> <%=product.getProductList() %> --%>
 			<c:forEach var="product" items="${product.productList}">
 				<option><c:out value="${product}" /></option>
 				<!-- <option>참외</option>

@@ -15,8 +15,9 @@
 		response.addCookie(cookiePw);
 		
 		out.println("쿠키 생성이 성공했습니다.");
-	}else {
+	}else{
 		out.println("쿠키 생성이 실패했습니다.");
 	}
+
 
 %>
